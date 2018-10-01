@@ -2,9 +2,12 @@ package br.usjt.ads.arqdes.controller;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -194,14 +197,87 @@ public class ManterFilmesController extends HttpServlet {
 			dispatcher.forward(request, response);
 			break;
 		case "ordenarData":
-			session = request.getSession();
-			fService = new FilmeService();
-			ArrayList<Filme> ordemData;
-			ordemData = fService.ordenarData();
-			session.setAttribute("lista", ordemData);
-			dispatcher = request.getRequestDispatcher("ListarFilmes.jsp");
-			dispatcher.forward(request, response);
-		}
+					session = request.getSession();
+					fService = new FilmeService();
+					ArrayList<Filme> lista5;
+					lista5 = fService.ordenarData();
+					
+
+					Filme filmeMes = null;
+					Filme filmeAno = null;
+					
+					ArrayList<Filme> listaAno = new ArrayList<Filme>();
+					ArrayList<Filme> listaMes = new ArrayList<Filme>();
+					
+					Date data = new Date();
+					Date dataBanco = new Date();
+					Calendar c = Calendar.getInstance();
+					Calendar c3 = Calendar.getInstance();
+					Calendar c4 = Calendar.getInstance();
+					DateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
+
+					int i = 0;
+				    for(Filme a: lista5)
+				    {
+				    	/*Inicio do código*/
+				    	
+				    	try {
+							String dataString = formatter2.format((a.getDataLancamento()));
+							dataBanco = (Date)formatter2.parse(dataString);
+						} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+				    	
+				    	c.setTime(dataBanco);
+				    
+				    	Format format1 = new SimpleDateFormat("MM");
+				    	Format format2 = new SimpleDateFormat("yyyy");
+				    	Format format3 = new SimpleDateFormat("dd");
+				    	int data01 = Integer.parseInt(format1.format(c.getTime()));
+				    	int data02 = Integer.parseInt(format2.format(c.getTime()));
+				    	int data03 = Integer.parseInt(format3.format(c.getTime()));
+				    	
+					    // formata e exibe a data e hora
+				    	c4.setTime(data);
+				    	
+					    Format format4 = new SimpleDateFormat("MM");
+					    Format format5 = new SimpleDateFormat("yyyy");
+					    Format format6 = new SimpleDateFormat("dd");
+					    int data04 = Integer.parseInt(format4.format(c4.getTime()));
+					    int data05 = Integer.parseInt(format5.format(c4.getTime()));
+					    int data06 = Integer.parseInt(format6.format(c4.getTime()));
+					    
+						 
+					    
+					    Calendar c1 = Calendar.getInstance();
+					    c1.set(Calendar.MONTH, data01);
+					    c1.set(Calendar.YEAR, data02);
+					    c1.set(Calendar.DAY_OF_MONTH, data03);
+
+					    Calendar c2 = Calendar.getInstance();
+					    c2.set(Calendar.MONTH, data04);
+					    c2.set(Calendar.YEAR, data05);
+					    c2.set(Calendar.DAY_OF_MONTH, data06);
+					    
+					    long diferenca = c2.getTime().getTime() - c1.getTime().getTime();
+					    if(diferenca <= 31){
+							filmeMes = lista5.get(i);
+							listaMes.add(filmeMes);
+						}
+						
+						if(diferenca >= 365){
+							filmeAno = lista5.get(i);
+							listaAno.add(filmeAno);
+						}
+					i++;
+				    }
+				    session.setAttribute("listaMes", listaMes);
+				    session.setAttribute("listaAno", listaAno);
+				    session.setAttribute("lista", lista5);
+					
+			}
+		
 		
 
 	}

@@ -44,154 +44,37 @@
 			<c:import url="Menu.jsp"/>
             <!-- Container Principal -->
             <div id="main" class="container">
-                <!-- 2018 -->
-                <c:if test="${not empty lista}">
+               
+                
+                <c:if test="${not empty listaAno}">
+                <!-- Aventura -->
                 <div id="list" class="row">
-                <h3>2018</h3>
-                    <div>
-                        	
-                            
+                <h3>Lançamentos (ordem decrescente)</h3>
+                    <div class="table-responsive col-md-14">
                         <table class="table table-striped" cellspacing="0" cellpadding="0">
-                                  <tr>
-	                                  <c:forEach var="filme" items="${lista}">
-	                                  <fmt:parseDate value="${filme.dataLancamento}" pattern="dd/MM/yyyy" var="submitDate"/>
-                                 <c:if test="${submitDate <now}">
-                                     We have not yet reached the submit date.
-                                 </c:if>
-	                                       <td class="clearfix">
+                            <thead> 
+                                <tr>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                   <tr>
+	                                  <c:forEach var="filme" items="${listaAno}">
+	                                  		<td class="clearfix">
 													<img alt="?" src="${filme.posterPath}" class="imag">
 											
 	                                               	<p><span class="dot">${filme.id }</span> ${filme.titulo }</p>
 													<p><fmt:formatDate value="${filme.dataLancamento}" pattern="dd/MM/yyyy"/></p>
 	                                               	<p>${filme.descricao}</p>
-	                                               	<p><a href="manterfilmes.do?acao=visualizar&id=${filme.id}">Mais informações</a></p>
+	                                               	<p><a href="visualizar_filme?id=${filme.id}">Mais informações</a></p>
 	                                             </td>
-	                                        
-	                                     
 	                                   </c:forEach>
                                     </tr>
-                          </table>
-                        
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 </c:if>
-                
-                <!-- 2017 -->
-                <c:if test="${not empty lista}">
-                <div id="list" class="row">
-                <h3>2017</h3>
-                    <div>
-                        	
-                            
-                        <table class="table table-striped" cellspacing="0" cellpadding="0">
-                                  <tr>
-	                                  <c:forEach var="filme" items="${lista}">
-	                                  	<c:if test="${filme.popularidade >= 61 && filme.popularidade <= 80}">
-	                                       <td class="clearfix">
-													<img alt="?" src="${filme.posterPath}" class="imag">
-											
-	                                               	<p><span class="dot">${filme.id }</span> ${filme.titulo }</p>
-													<p><fmt:formatDate value="${filme.dataLancamento}" pattern="dd/MM/yyyy"/></p>
-	                                               	<p>${filme.descricao}</p>
-	                                               	<p><a href="manterfilmes.do?acao=visualizar&id=${filme.id}">Mais informações</a></p>
-	                                             </td>
-	                                        
-	                                     </c:if>
-	                                   </c:forEach>
-                                    </tr>
-                          </table>
-                        
-                    </div>
-                </div>
-                </c:if>
-                
-                <!-- 2016 -->
-                <c:if test="${not empty lista}">
-                <div id="list" class="row">
-                <h3>2016</h3>
-                    <div>
-                        	
-                            
-                        <table class="table table-striped" cellspacing="0" cellpadding="0">
-                                  <tr>
-	                                  <c:forEach var="filme" items="${lista}">
-	                                  	<c:if test="${filme.popularidade >= 41 && filme.popularidade <= 60}">
-	                                       <td class="clearfix">
-													<img alt="?" src="${filme.posterPath}" class="imag">
-											
-	                                               	<p><span class="dot">${filme.id }</span> ${filme.titulo }</p>
-													<p><fmt:formatDate value="${filme.dataLancamento}" pattern="dd/MM/yyyy"/></p>
-	                                               	<p>${filme.descricao}</p>
-	                                               	<p><a href="manterfilmes.do?acao=visualizar&id=${filme.id}">Mais informações</a></p>
-	                                             </td>
-	                                        
-	                                     </c:if>
-	                                   </c:forEach>
-                                    </tr>
-                          </table>
-                        
-                    </div>
-                </div>
-                </c:if>
-                
-                <!-- 2005 - 2015 -->
-                <c:if test="${not empty lista}">
-                <div id="list" class="row">
-                <h3>2005 - 2015</h3>
-                    <div>
-                        	
-                            
-                        <table class="table table-striped" cellspacing="0" cellpadding="0">
-                                  <tr>
-	                                  <c:forEach var="filme" items="${lista}">
-	                                  	<c:if test="${filme.popularidade >= 21 && filme.popularidade <= 40}">
-	                                       <td class="clearfix">
-													<img alt="?" src="${filme.posterPath}" class="imag">
-											
-	                                               	<p><span class="dot">${filme.id }</span> ${filme.titulo }</p>
-													<p><fmt:formatDate value="${filme.dataLancamento}" pattern="dd/MM/yyyy"/></p>
-	                                               	<p>${filme.descricao}</p>
-	                                               	<p><a href="manterfilmes.do?acao=visualizar&id=${filme.id}">Mais informações</a></p>
-	                                             </td>
-	                                        
-	                                     </c:if>
-	                                   </c:forEach>
-                                    </tr>
-                          </table>
-                        
-                    </div>
-                </div>
-                </c:if>
-                
-                <!-- Até 2015 -->
-                <c:if test="${not empty lista}">
-                <div id="list" class="row">
-                <h3>Até 2015</h3>
-                    <div>
-                        	
-                            
-                        <table class="table table-striped" cellspacing="0" cellpadding="0">
-                                  <tr>
-	                                  <c:forEach var="filme" items="${lista}">
-	                                  	<c:if test="${filme.popularidade >= 0 && filme.popularidade <= 20}">
-	                                       <td class="clearfix">
-													<img alt="?" src="${filme.posterPath}" class="imag">
-											
-	                                               	<p><span class="dot">${filme.id }</span> ${filme.titulo }</p>
-													<p><fmt:formatDate value="${filme.dataLancamento}" pattern="dd/MM/yyyy"/></p>
-	                                               	<p>${filme.descricao}</p>
-	                                               	<p><a href="manterfilmes.do?acao=visualizar&id=${filme.id}">Mais informações</a></p>
-	                                             </td>
-	                                        
-	                                     </c:if>
-	                                   </c:forEach>
-                                    </tr>
-                          </table>
-                        
-                    </div>
-                </div>
-                </c:if>       
-                
             </div>
             <!-- /#main -->
             <script src="js/jquery.min.js"></script>
